@@ -1,0 +1,9 @@
+{
+    "_comment": "http://127.0.0.1:8080/v3/datasets/DATASET_UUID/tags",
+    "tags": [
+        "example-keyword-1",
+        "example-keyword-2",
+        "example-keyword-3",
+        "example-keyword-4"
+    ]
+}

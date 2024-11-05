@@ -1,0 +1,8 @@
+{
+    "references": [
+        {
+            "_comment": "http://127.0.0.1:8080/v3/datasets/DATASET_UUID/references",
+            "url": "Example reference"
+        }
+    ]
+}
