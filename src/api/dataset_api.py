@@ -1,9 +1,13 @@
 import requests
-import config
+from config import Config
+from urllib.parse import urlparse
+import json
 
 class DatasetAPI():
     
     def __init__(self, config=None):
+        if not isinstance(config, Config):
+            raise TypeError("config must be an instance of the Config class.")
         self._config = config
         
     @property
@@ -38,7 +42,7 @@ class DatasetAPI():
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.post(f" {self._config.base_url}/account/articles", json=metadata, headers=headers)
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
-        return response
+        return json.loads(response.text)
     
     def get_datasets(self, metadata):
         """Gets all datasets belonging to the user from 4TUResearchData
@@ -49,12 +53,25 @@ class DatasetAPI():
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
         return response
     
-    def retrieve_git_remote():
-        """Retrieve git remote from 4TUResearchData
+    def put_dataset_details(self, dataset_id, metadata):
+        headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
+        response = requests.put(f"{self._config.base_url}/account/articles/{dataset_id}", json=metadata, headers=headers)
+        response.raise_for_status()  # Raises an error for 4XX/5XX responses
+        
+        
+    def get_dataset(self, dataset_id):
+        headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
+        response = requests.get(f"{self._config.base_url}/account/articles/{dataset_id}", headers=headers)
+        response.raise_for_status()  # Raises an error for 4XX/5XX responses
+        return json.loads(response.content)
+    
+    def retrieve_dataset_id_from_response(self, response):
+        """Retrieve dataset_id from from response
         
         """
-        response = None
-        return response
+        parsed_url = urlparse(response['location'])
+        uuid = parsed_url.path.split('/')[-1]
+        return uuid
     
     def push_gitrepo():
         """Push git repository to git remote on 4TUResearchData

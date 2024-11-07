@@ -1,21 +1,21 @@
 from requests import HTTPError
 from api.dataset_api import DatasetAPI
 from util import metadata_helper
-from model.dataset import Dataset, DatasetDecoder, DatasetEncoder
 from config import Config
 import json
+import sys
 
 class __main__:
+    if sys.version_info[0] < 3:
+        raise Exception("Python 3 or a more recent version is required.")
+    
     dataset_api = DatasetAPI(Config())
     try:
-        dataset = metadata_helper.create_dataset_metadata("dataset_example.json", "", "")
-        print(dataset)
-        metadata_json = json.dumps(dataset, indent=2, cls=DatasetEncoder)
-        response = json.loads(dataset_api.create_dataset(metadata_json).text)
-        print (json.dumps(response, indent=2))
-        
+        metadata_json = metadata_helper.prepare_dataset("dataset_example.json")
+        response = dataset_api.create_dataset(json.loads(metadata_json))
+        dataset_id = dataset_api.retrieve_dataset_id_from_response(response)
+        dataset_api.put_dataset_details(dataset_id, metadata_json)
+        dataset_json = json.dumps(dataset_api.get_dataset(dataset_id))
+        print(dataset_json)
     except HTTPError as e:
         print(e)
-
-    
-    

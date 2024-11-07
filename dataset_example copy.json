@@ -23,5 +23,11 @@
     "group_id": "34895",
     "agreed_to_deposit_agreement": true,
     "agreed_to_publish": true,
+    "categories": [
+        "67c44391-177f-42e8-abc3-aed11c6fbd63",
+        "861bf1b8-36e6-4bec-974b-2a61824a223b",
+        "a6e21b2e-73a7-4e47-af9a-3c6346ebda5f",
+        "749f47ee-0744-4e28-bfc0-c69c082516a9"
+    ],
     "license_id": "3"
 }
