@@ -1,4 +1,3 @@
-import json
 import logging
 from urllib.parse import urlparse
 
@@ -7,6 +6,9 @@ class NoMetadataError(Exception):
     pass
 
 def prepare_dataset_metadata(metadata_path):
+    """Prepares metadata for use with the DatasetAPI by reading JSON from a file
+    
+    """
     logging.debug(f"Preparing dataset metadata with metadata path: {metadata_path}")
     metadata = _load_metadata_from_file(metadata_path)
     if metadata != None or metadata == "":
@@ -15,14 +17,6 @@ def prepare_dataset_metadata(metadata_path):
         return metadata
     else:
         raise NoMetadataError
-
-def _load_metadata_from_file(path):
-    with open(path, "r") as file:
-        metadata = ""
-        metadata = file.read()
-        file.close
-    return metadata
-
     
 def retrieve_dataset_id_from_response(response):
     """Retrieve dataset_id from from response
@@ -34,3 +28,10 @@ def retrieve_dataset_id_from_response(response):
     uuid = parsed_url.path.split('/')[-1]
     logging.debug(f"Found uuid ({uuid})")
     return uuid
+
+def _load_metadata_from_file(path):
+    with open(path, "r") as file:
+        metadata = ""
+        metadata = file.read()
+        file.close
+    return metadata

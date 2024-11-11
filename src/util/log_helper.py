@@ -1,6 +1,9 @@
 import logging
 
 def setup_logging(log_level=logging.INFO, log_file="4TU-CODEPUBLISH.log"):
+    """Set's up logging by setting a loglevel and a path to the desired logfile.
+    
+    """
     # Console output
     streamHandler = logging.StreamHandler()
     streamHandler.setLevel(log_level)

@@ -114,7 +114,7 @@ class DatasetAPI():
         return json.loads(response.text)
     
     def get_licenses(self):
-        """Get licenses
+        """Get licenses that are available on the instance
         
         """
         self._logger.info("Getting licenses")
