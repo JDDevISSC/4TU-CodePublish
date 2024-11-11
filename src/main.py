@@ -14,8 +14,7 @@ class __main__:
     logging.info("Starting 4TU-CODEPUBLISH")
     dataset_api = DatasetAPI(config)
     try:
-        # search_results = dataset_api.search_authors("Jori")
-        # print(search_results)
+        search_results = dataset_api.search_authors("Jori")
         
         response = dataset_api.get_licenses()
         
