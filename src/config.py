@@ -4,7 +4,7 @@ import os
 load_dotenv()
 
 API_TOKEN = os.getenv("4TU_API_TOKEN")
-BASE_URL = "http://127.0.0.1:8080/v2"
+BASE_URL = "http://127.0.0.1:8080"
 
 class Config():
     def __init__(self, api_token=API_TOKEN, base_url=BASE_URL):
@@ -32,7 +32,7 @@ class Config():
         :type: str
         """
         if api_token is None:
-            raise ValueError("Invalconfig value for `api_token`, must not be `None`")  
+            raise ValueError("Invalid config value for `api_token`, must not be `None`")  
 
         self._api_token = api_token
         
