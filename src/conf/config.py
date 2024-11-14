@@ -9,11 +9,33 @@ LOG_LEVEL = os.getenv("4TU_LOG_LEVEL")
 LOG_FILE = os.getenv("4TU_LOG_FILE")
 
 class Config():
-    def __init__(self, api_token=API_TOKEN, base_url=BASE_URL, log_level=LOG_LEVEL, log_file=LOG_FILE):
+    def __init__(self, api_token=API_TOKEN, base_url=BASE_URL, log_level=LOG_LEVEL, log_file=LOG_FILE, output="metadata.json"):
         self._api_token = api_token
         self._base_url = base_url
         self._log_level = log_level
         self._log_file = log_file
+        
+    @property
+    def output(self):
+        """Gets the output of this Config.  
+
+        output for Config  
+
+        :return: The output of this Config.  
+        :rtype: str
+        """
+        return self._output
+
+    @output.setter
+    def log_file(self, output):
+        """Sets the output for this Config.
+
+        output for Config 
+
+        :param output: The output for this Config.  
+        :type: str
+        """
+        self._output = output
 
     @property
     def log_file(self):
