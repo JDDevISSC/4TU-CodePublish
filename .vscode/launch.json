@@ -8,6 +8,15 @@
             "program": "${workspaceFolder}/src/main.py",
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/src/.env"
+        },
+        {
+            "name": "Python: Main Create",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main.py",
+            "args": ["--create"],
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/src/.env"
         }
     ]
 }
