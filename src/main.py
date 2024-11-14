@@ -1,25 +1,55 @@
+import argparse
 import logging
 from requests import HTTPError
 from api.dataset_api import DatasetAPI
-from util import log_helper, metadata_helper
-from config import Config
+from util import log_helper
+from util.metadata_helper import MetadataHelper
+from conf.config import Config
 import json
 import sys
 
 class __main__:
+    # Check for Python 3 or a more recent version. Fail if condition is not met.
     if sys.version_info[0] < 3:
         raise Exception("Python 3 or a more recent version is required.")
+    
+    # Handle the configuration
     config = Config()
+    # Setup logging
     log_helper.setup_logging(config.log_level, config.log_file)
+    
+    # Start the program by initilizing necesarry class objects
     logging.info("Starting 4TU-CODEPUBLISH")
     dataset_api = DatasetAPI(config)
+    metadata_helper = MetadataHelper(dataset_api)
+
+    # Parse arguments
+    parser = argparse.ArgumentParser(description="4TU-CODEPUBLISH")
+    parser.add_argument("--create", "-c", action="store_true", help="Start the interactive metadata creation process. Output defaults to metadata.json")
+    parser.add_argument("--output", "-o", type=str, help="Specify the metadata output file.")
+    args = parser.parse_args()
+    
+    # Set the output file if it was specified and not empty    
+    if args.output is not None or args.output is not args.output == "":
+        config.output(args.output)
+    
+    # Start the interactive metadata creation funnel if the create argument is given.
+    if args.create:
+        metadata_helper.start_interactive_metadata_funnel()
+    else:
+        #Start pushing code and metadata only if there was no create argument given.
+        pass
+
+
+    # Testcode to be removed. TODO
     try:
-        
         # The following methods can be used to generate a local JSON file for the user.
         search_results = dataset_api.search_authors("Jori")
         response = dataset_api.get_licenses()
         response = dataset_api.get_authors_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
-        response = dataset_api.get_collaborators_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
+        # Collaborators are in Beta and I'm having some trouble getting collaborators to save
+        # On the current Djehuty build.
+        # response = dataset_api.get_collaborators_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
         response = dataset_api.get_references_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
         response = dataset_api.get_tags_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
         response = dataset_api.get_funding_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
