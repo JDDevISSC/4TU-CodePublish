@@ -6,7 +6,14 @@
             "value": []
         }
     ],
-    "authors": [],
+    "authors": [
+        {
+            "uuid":"606a475d-64db-48a8-8db2-838fa1db9884"
+        },
+        {
+            "uuid":"79e066d9-9839-41b5-91de-82ea8927c747"
+        }
+    ],
     "figshare_url": null,
     "description": "<p>Example description</p>",
     "funding": null,
@@ -22,10 +29,10 @@
     "confidential_reason": "",
     "metadata_reason": "",
     "license": {
-        "value": null,
-        "name": null,
-        "url": null
-    },
+        "value": 1, 
+        "name": "CC BY 4.0", 
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
     "tags": [],
     "categories": [],
     "references": [],
@@ -33,10 +40,15 @@
     "citation": null,
     "is_embargoed": false,
     "embargo_date": null,
-    "embargo_type": null,
-    "embargo_title": "",
-    "embargo_reason": "",
-    "embargo_options": [],
+    "embargo_type": "article",
+    "embargo_title": "Under embargo",
+    "embargo_reason": "<p>reason</p><p>multiline</p>",
+    "embargo_options": [{
+        "id": 1000,
+        "type": "restricted_access"
+    }],
+    "embargo_until_date": "2024-11-21",
+    "eula": "<p>Eula</p><p>multi</p><p>line</p>",
     "id": null,
     "uuid": "5ff3630d-a6e3-4c5e-86b5-9df8c47246b8",
     "title": "Example title",
