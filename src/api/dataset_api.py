@@ -1,6 +1,6 @@
 import logging
 import requests
-from config import Config
+from conf.config import Config
 import json
 
 class DatasetAPI():
@@ -65,7 +65,7 @@ class DatasetAPI():
         """Creates a dataset on 4TUResearchData
         
         """
-        self._logger.info("Creating dataset.")
+        self.logger.info("Creating dataset.")
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.post(f" {self._config.base_url}/v2/account/articles", json=metadata, headers=headers)
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
@@ -75,7 +75,7 @@ class DatasetAPI():
         """Gets all datasets belonging to the user
         
         """
-        self._logger.info("Getting datasets.")
+        self.logger.info("Getting datasets.")
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v2/account/articles", headers=headers)
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
@@ -85,8 +85,8 @@ class DatasetAPI():
         """Update dataset with dataset_id with metadata
         
         """
-        self._logger.info(f"Updating dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(metadata)
+        self.logger.info(f"Updating dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(metadata)
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.put(f"{self._config.base_url}/v2/account/articles/{dataset_id}", json=metadata, headers=headers)
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
@@ -96,7 +96,7 @@ class DatasetAPI():
         """Get dataset with dataset_id
         
         """
-        self._logger.info(f"Get dataset with dataset_id ({dataset_id}).")
+        self.logger.info(f"Get dataset with dataset_id ({dataset_id}).")
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v2/account/articles/{dataset_id}", headers=headers)
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
@@ -106,7 +106,7 @@ class DatasetAPI():
         """Search author with search_string
         
         """
-        self._logger.info(f"Searching author with search_string ({search_string}).")
+        self.logger.info(f"Searching author with search_string ({search_string}).")
         # Search Authors: POST http://127.0.0.1:8080/v2/account/authors/search
         search_json = { "search": search_string }
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
@@ -117,7 +117,7 @@ class DatasetAPI():
         """Get licenses that are available on the instance
         
         """
-        self._logger.info("Getting licenses")
+        self.logger.info("Getting licenses")
         # Get available licenses: GET http://127.0.0.1:8080/v2/licenses
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v2/licenses", headers=headers)
@@ -127,8 +127,8 @@ class DatasetAPI():
         """Get authors for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting authors for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"limit:{limit}")
+        self.logger.info(f"Getting authors for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"limit:{limit}")
         # Get authors for dataset: GET http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848/authors?limit=10000
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v3/datasets/{dataset_id}/authors?{limit}", headers=headers)
@@ -138,8 +138,8 @@ class DatasetAPI():
         """Get collaborators for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting collaborators for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"limit={limit}, order={order}, order_direction={order_direction}")
+        self.logger.info(f"Getting collaborators for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"limit={limit}, order={order}, order_direction={order_direction}")
         # Get collaborators: GET http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848/collaborators?limit=10000&order=id&order_direction=asc
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v3/datasets/{dataset_id}/collaborators?{limit}?order={order}?order_direction={order_direction}", headers=headers)
@@ -149,8 +149,8 @@ class DatasetAPI():
         """Get references for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting references for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"limit={limit}, order={order}, order_direction={order_direction}")
+        self.logger.info(f"Getting references for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"limit={limit}, order={order}, order_direction={order_direction}")
         # Get references for dataset: GET http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848/references?limit=10000&order=asc&order_direction=id
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v3/datasets/{dataset_id}/references?{limit}?order={order}?order_direction={order_direction}", headers=headers)
@@ -160,8 +160,8 @@ class DatasetAPI():
         """Get tags for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting tags for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"limit={limit}")
+        self.logger.info(f"Getting tags for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"limit={limit}")
         # Get tags for dataset: GET http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848/tags?limit=10000
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v3/datasets/{dataset_id}/tags?{limit}", headers=headers)
@@ -171,8 +171,8 @@ class DatasetAPI():
         """Get funding for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting funding for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"limit={limit}, order={order}, order_direction={order_direction}")
+        self.logger.info(f"Getting funding for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"limit={limit}, order={order}, order_direction={order_direction}")
         # Get funding for dataset: GET http://127.0.0.1:8080/v2/account/articles/556cb091-9b73-45f2-85c7-d7a97465d848/funding?limit=10000&order=id&order_direction=asc
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v2/account/articles/{dataset_id}/funding?{limit}?order={order}?order_direction={order_direction}", headers=headers)
@@ -182,8 +182,8 @@ class DatasetAPI():
         """Get categories for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting categories for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"limit={limit}")
+        self.logger.info(f"Getting categories for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"limit={limit}")
         # Get categories for datset: GET http://127.0.0.1:8080/v2/account/articles/556cb091-9b73-45f2-85c7-d7a97465d848/categories?limit=10000
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v2/account/articles/{dataset_id}/categories?{limit}", headers=headers)
@@ -193,7 +193,7 @@ class DatasetAPI():
         """Get git branches for dataset with dataset_id
         
         """
-        self._logger.info(f"Getting git branches for dataset with dataset_id ({dataset_id}).")
+        self.logger.info(f"Getting git branches for dataset with dataset_id ({dataset_id}).")
         # Get git branches for dataset: GET http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848.git/branches
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v3/datasets/{dataset_id}.git/branches", headers=headers)
@@ -203,8 +203,8 @@ class DatasetAPI():
         """Set default branch for dataset with dataset_id
         
         """
-        self._logger.info(f"Setting default branch for dataset with dataset_id ({dataset_id}).")
-        self._logger.debug(f"branch={branch}")
+        self.logger.info(f"Setting default branch for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"branch={branch}")
         # Set default branch for dataset: PUT http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848.git/set-default-branch
         if branch == None:
             raise ValueError("Invalid value for `branch`, must not be `None`")
