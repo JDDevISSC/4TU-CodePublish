@@ -28,6 +28,7 @@
     "is_metadata_record": false,
     "confidential_reason": "",
     "metadata_reason": "",
+    "language": "en",
     "license": {
         "value": 1, 
         "name": "CC BY 4.0", 

@@ -106,11 +106,14 @@ class MetadataHelper():
         license = self._prompt_for_license()
         categories = self._prompt_for_categories()
         group = self._prompt_for_group()
+        language = self._prompt_for_language()
+        
         print(json.dumps(authors) + 
               json.dumps(title) + 
               json.dumps(description) +
               json.dumps(license) +
-              json.dumps(categories))
+              json.dumps(categories) +
+              json.dumps(group))
         # print(self.config.output)
         # metadata = self._prompt_user_for_input()
         # metadata = None
@@ -317,10 +320,13 @@ four characters.{os.linesep}""", multiline=True).ask()
         "zh-hant": "Chinese, Traditional"
         }
         
-        answer = self._prompt_for_selection(languages)
-        for key in answer:
-            return key
-        raise Exception("No key in answer.")
+        choices = []
+        for language in languages:
+            choices.append(questionary.Choice(
+                title = languages[language],
+                value = language))
+        language = questionary.select(f"Select a language:{os.linesep}", choices=choices, ).ask()
+        return {"language" : language}
         
     def _create_choices_from_data(self, data, title_key, value_key):
         choices = []
