@@ -99,11 +99,12 @@ class MetadataHelper():
             json.dump(metadata, path)
             
     def start_interactive_metadata_funnel(self):
-        self.logger.info(f"Starting interactive metadata funnel with output path ({self.config.output})")
+        self.logger.info(f"Starting interactive metadata funnel with output path ({self.dataset_api.config.output})")
         title = self._prompt_for_title()
         authors = self._prompt_for_authors()
         description = self._prompt_for_description()
         license = self._prompt_for_license()
+        categories = self._prompt_for_categories()
         print(json.dumps(authors) + 
               json.dumps(title) + 
               json.dumps(description) +
@@ -171,6 +172,26 @@ four characters.{os.linesep}""", multiline=True).ask()
                                 "url": license.get("url")}}
         else:
             raise Exception("Couldn't fetch licenses from server.")
+    
+    def _prompt_for_categories(self):
+        selected_categories = []
+        results = self.dataset_api.get_categories()
+        choices = self._create_hierarchical_choices_from_data(data=results, 
+                                                 title_key="title",
+                                                 value_key="uuid",
+                                                 parent_key="parent_uuid")
+        # Throw an exception when there are no categories to choose from.
+        if len(choices) > 0:
+            checked = questionary.checkbox(f"Select one or multiple categories that this research best correlates with:{os.linesep}", 
+                                           choices=choices).ask()
+            # Append all results that are checked
+            for option in checked:
+                for result in results:
+                    if result.get("uuid") == option:
+                        selected_categories.append(result)
+        else:
+            raise Exception("Couldn't fetch categories from server.")
+        return selected_categories        
 
     def _prompt_for_language(self):
         languages = {
@@ -279,7 +300,41 @@ four characters.{os.linesep}""", multiline=True).ask()
                     title=d.get(title_key), 
                     value=d.get(value_key))
                 )
-        return choices        
+        return choices
+    
+    def _create_hierarchical_choices_from_data(self, data, title_key, value_key, parent_key):
+        choices = []
+        # Create choices from result
+        # Create the parent choices first.
+        for d in data:
+            parent_id = d.get(parent_key)
+            # Adding top level choice
+            if parent_id is None or parent_id == "":
+                choices.append(questionary.Choice(
+                    title=d.get(title_key), 
+                    value=d.get(value_key)
+                    )
+                )
+        # Now that all parent choices are added we can add the sub level choices
+        for d in data:
+            parent_id = d.get(parent_key)
+            # Make sure to only add sub level choices
+            if parent_id is not None and parent_id != "":
+                # Get the parent index
+                parent_index = None
+                for i, choice in enumerate(choices):
+                    if choice.value == parent_id:
+                        parent_index = i
+                # If the parent choice doesn't exist, something is wrong.
+                if parent_index is None:
+                    raise Exception("Parent choice doesn't exist.")
+                # Inserting sub level choices after parent.
+                choices.insert(parent_index+1, questionary.Choice(
+                    # Add indent for sublevel choice
+                    title=("    " + d.get(title_key)),
+                    value=d.get(value_key)
+                ))            
+        return choices           
         
     def _prompt_user_for_input(self):
         metadata = {}

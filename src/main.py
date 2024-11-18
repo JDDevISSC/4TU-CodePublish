@@ -17,9 +17,10 @@ class __main__:
     config = Config()
     # Setup logging
     log_helper.setup_logging(config.log_level, config.log_file)
+    logger = logging.getLogger(__name__)
     
     # Start the program by initilizing necesarry class objects
-    logging.info("Starting 4TU-CODEPUBLISH")
+    logger.info("Starting 4TU-CODEPUBLISH")
     dataset_api = DatasetAPI(config)
     metadata_helper = MetadataHelper(dataset_api)
 
@@ -46,6 +47,7 @@ class __main__:
         # The following methods can be used to generate a local JSON file for the user.
         search_results = dataset_api.search_authors("Jori")
         response = dataset_api.get_licenses()
+        response = dataset_api.get_categories()
         response = dataset_api.get_authors_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
         # Collaborators are in Beta and I'm having some trouble getting collaborators to save
         # On the current Djehuty build.

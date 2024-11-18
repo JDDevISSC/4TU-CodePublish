@@ -7,13 +7,15 @@ API_TOKEN = os.getenv("4TU_API_TOKEN")
 BASE_URL = os.getenv("4TU_BASE_URL")
 LOG_LEVEL = os.getenv("4TU_LOG_LEVEL")
 LOG_FILE = os.getenv("4TU_LOG_FILE")
+OUTPUT_FILE = os.getenv("4TU_OUTPUT_FILE")
 
 class Config():
-    def __init__(self, api_token=API_TOKEN, base_url=BASE_URL, log_level=LOG_LEVEL, log_file=LOG_FILE, output="metadata.json"):
+    def __init__(self, api_token=API_TOKEN, base_url=BASE_URL, log_level=LOG_LEVEL, log_file=LOG_FILE, output=OUTPUT_FILE):
         self._api_token = api_token
         self._base_url = base_url
         self._log_level = log_level
         self._log_file = log_file
+        self._output = output
         
     @property
     def output(self):
