@@ -105,10 +105,12 @@ class MetadataHelper():
         description = self._prompt_for_description()
         license = self._prompt_for_license()
         categories = self._prompt_for_categories()
+        group = self._prompt_for_group()
         print(json.dumps(authors) + 
               json.dumps(title) + 
               json.dumps(description) +
-              json.dumps(license))
+              json.dumps(license) +
+              json.dumps(categories))
         # print(self.config.output)
         # metadata = self._prompt_user_for_input()
         # metadata = None
@@ -193,6 +195,35 @@ four characters.{os.linesep}""", multiline=True).ask()
             raise Exception("Couldn't fetch categories from server.")
         return selected_categories        
 
+    def _prompt_for_group(self):
+        groups = {
+            "28586": "Delft University of Technology",
+            "28628": "Delft University of Technology Students",
+            "28589": "Eindhoven University of Technology",
+            "28631": "Eindhoven University of Technology Students",
+            "28592": "University of Twente",
+            "28634": "University of Twente Students",
+            "28595": "Wageningen University and Research",
+            "28598": "Other institutions",
+            "34892": "NIOZ Royal Netherlands Institute for Sea Research",
+            "34895": "Leiden University",
+            "34898": "Utrecht University",
+            "34901": "University of Amsterdam",
+            "34904": "Erasmus University Rotterdam",
+            "34907": "Deltares",
+            "34910": "IHE Delft Institute for Water Education",
+            "34913": "Radboud University",
+            "34916": "University of Groningen",
+            "34919": "Maastricht University"
+        }
+        choices = []
+        for group in groups:
+            choices.append(questionary.Choice(
+                title = groups[group],
+                value = group))
+        group = questionary.select(f"Select a group:{os.linesep}", choices=choices, ).ask()
+        return {"group_id" : group}
+        
     def _prompt_for_language(self):
         languages = {
         "af": "Afrikaans",
