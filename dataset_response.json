@@ -34,7 +34,46 @@
         "url": "https://creativecommons.org/licenses/by/4.0/"
         },
     "tags": [],
-    "categories": [],
+    "categories": [{
+            "id": 13504,
+            "uuid": "2bd6e110-d616-48d0-aecd-eb4f8c0dc01c", 
+            "title": "Commercial Services", 
+            "parent_id": 13500, 
+            "parent_uuid": "aef3906a-da80-425a-ae7d-766009c2daf0", 
+            "path": "", 
+            "source_id": null, 
+            "taxonomy_id": null
+        }, 
+        {
+            "id": 13579, 
+            "uuid": "64fa8ed8-8956-4c98-aebf-55d5efafe58d", 
+            "title": "Biochemistry and Cell Biology", 
+            "parent_id": 13578, 
+            "parent_uuid": "e62b369d-3761-4091-a606-498f9a84f4f4", 
+            "path": "", 
+            "source_id": null, 
+            "taxonomy_id": null
+        }, 
+        {
+            "id": 13578, 
+            "uuid": "e62b369d-3761-4091-a606-498f9a84f4f4", 
+            "title": "Biological Sciences", 
+            "parent_id": null, 
+            "parent_uuid": null, 
+            "path": "", 
+            "source_id": null, 
+            "taxonomy_id": null
+        }, 
+        {
+            "id": 13500, 
+            "uuid": "aef3906a-da80-425a-ae7d-766009c2daf0", 
+            "title": "Commerce, Management, Tourism and Services", 
+            "parent_id": null, 
+            "parent_uuid": null, 
+            "path": "", 
+            "source_id": null, 
+            "taxonomy_id": null
+    }],
     "references": [],
     "has_linked_file": false,
     "citation": null,

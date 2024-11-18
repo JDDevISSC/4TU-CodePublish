@@ -60,7 +60,7 @@ class DatasetAPI():
             raise ValueError("logger value for `logger`, must not be `None`")  
 
         self._logger = logger
-    
+            
     def create_dataset(self, metadata):
         """Creates a dataset on 4TUResearchData
         
@@ -177,6 +177,16 @@ class DatasetAPI():
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.get(f"{self._config.base_url}/v2/account/articles/{dataset_id}/funding?{limit}?order={order}?order_direction={order_direction}", headers=headers)
         return json.loads(response.text)
+    
+    def get_categories(self):
+        """Get categories
+        
+        """
+        self.logger.info("Getting categories.")
+        # Get categories: GET http://127.0.0.1:8080/v2/categories
+        headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
+        response = requests.get(f"{self._config.base_url}/v2/categories", headers=headers)
+        return json.loads(response.text)   
     
     def get_categories_for_dataset(self, dataset_id, limit=10000):
         """Get categories for dataset with dataset_id
