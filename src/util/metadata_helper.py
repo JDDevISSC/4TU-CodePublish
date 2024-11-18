@@ -87,16 +87,24 @@ class MetadataHelper():
 
     def _load_metadata_from_file(self, path):
         self.logger.debug(f"Loading metadatafile at ({path})")
-        with open(path, "r") as file:
-            metadata = file.read()
-            file.close
+        try:
+            with open(path, "r") as file:
+                metadata = file.read()
+                file.close()
+        except Exception as e:
+            self.logger.error(f"Couldn't load metadata from file. Error: {e}")
         return json.loads(metadata)
 
     def _create_metadatafile(self, path, metadata):
         self.logger.debug(f"Creating metadatafile at ({path})")
         self.logger.debug(json.dump(metadata))
-        with open(path, "w") as file:
-            json.dump(metadata, path)
+        try:
+            with open(path, "w") as file:
+                file.write(json.dump(metadata, path))
+                file.close()
+        except Exception as e:
+            self.logger.error(f"Couldn't create metadata file. Error: {e}")
+            
             
     def start_interactive_metadata_funnel(self):
         # TODO Add more metadata to the funnel.
@@ -112,20 +120,22 @@ class MetadataHelper():
         deposit_agreement = self._prompt_for_deposit_agreement()
         publish_agreement = self._prompt_for_publish_agreement()
         
-        print(json.dumps(authors))
-        print(json.dumps(title))
-        print(json.dumps(description))
-        print(json.dumps(license))
-        print(json.dumps(categories))
-        print(json.dumps(group))
-        print(json.dumps(language))
-        print(json.dumps(tags))
-        print(json.dumps(deposit_agreement))
-        print(json.dumps(publish_agreement))
-        # print(self.config.output)
-        # metadata = self._prompt_user_for_input()
-        # metadata = None
-        # self._create_metadatafile(output_path, metadata)
+        self.logger.debug(f"title JSON:" + json.dumps(title))
+        self.logger.debug(f"authors JSON:" + json.dumps(authors))
+        self.logger.debug(f"description JSON:" + json.dumps(description))
+        self.logger.debug(f"license JSON:" + json.dumps(license))
+        self.logger.debug(f"categories JSON:" + json.dumps(categories))
+        self.logger.debug(f"group JSON:" + json.dumps(group))
+        self.logger.debug(f"language JSON:" + json.dumps(language))
+        self.logger.debug(f"tags JSON:" + json.dumps(tags))
+        self.logger.debug(f"deposit_agreement JSON:" + json.dumps(deposit_agreement))
+        self.logger.debug(f"publish_agreement JSON:" + json.dumps(publish_agreement))
+        
+        #Combine all data into one metadata dict
+        metadata = {**title, **authors, **description, **license, **categories, **group,
+                    **language, **tags, **deposit_agreement, **publish_agreement}
+        self.logger.debug(f"metadata JSON:" + json.dumps(metadata))
+        self._create_metadatafile(self.dataset_api.config.output, metadata)
 
     def _prompt_for_title(self):
         title = questionary.text(message=f"""Enter a title.{os.linesep}
