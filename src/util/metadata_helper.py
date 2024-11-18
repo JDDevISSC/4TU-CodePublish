@@ -97,10 +97,10 @@ class MetadataHelper():
 
     def _create_metadatafile(self, path, metadata):
         self.logger.debug(f"Creating metadatafile at ({path})")
-        self.logger.debug(json.dump(metadata))
+        self.logger.debug(metadata)
         try:
             with open(path, "w") as file:
-                file.write(json.dump(metadata, path))
+                file.write(json.dumps(metadata))
                 file.close()
         except Exception as e:
             self.logger.error(f"Couldn't create metadata file. Error: {e}")
@@ -133,7 +133,7 @@ class MetadataHelper():
         
         #Combine all data into one metadata dict
         metadata = {**title, **authors, **description, **license, **categories, **group,
-                    **language, **tags, **deposit_agreement, **publish_agreement}
+            **language, **tags, **deposit_agreement, **publish_agreement}
         self.logger.debug(f"metadata JSON:" + json.dumps(metadata))
         self._create_metadatafile(self.dataset_api.config.output, metadata)
 
@@ -164,7 +164,7 @@ three characters.{os.linesep}""").ask()
             if len(authors) > 0:
                 done_prompting = not questionary.confirm("Do you want to keep adding authors?",).ask()
         # Return author dict
-        return [{"uuid": author} for author in authors]
+        return {"authors": [{"uuid": author} for author in authors]}
 
     def _prompt_for_description(self):
         description = questionary.text(message=f"""Enter a description.{os.linesep}
@@ -214,7 +214,7 @@ four characters.{os.linesep}""", multiline=True).ask()
                         selected_categories.append(result)
         else:
             raise Exception("Couldn't fetch categories from server.")
-        return selected_categories        
+        return {"categories": selected_categories}         
 
     def _prompt_for_group(self):
         groups = {
