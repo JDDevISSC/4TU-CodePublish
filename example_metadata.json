@@ -1,0 +1,50 @@
+{
+    "title": "Example Research Title",
+    "authors": [
+        {
+            "uuid": "79e066d9-9839-41b5-91de-82ea8927c747"
+        }
+    ],
+    "description": "<p>This is an example description\nthat can cover multiple lines.</p>",
+    "license": {
+        "value": 3,
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+    },
+    "categories": [
+        {
+            "id": 13611,
+            "uuid": "a23e4796-63f5-4025-8876-982cdcd7d19f",
+            "title": "Information and Computing Sciences",
+            "parent_id": null,
+            "parent_uuid": null,
+            "path": "",
+            "source_id": null,
+            "taxonomy_id": null
+        },
+        {
+            "id": 13614,
+            "uuid": "052c2556-be77-49aa-a22c-7a7874ea32a5",
+            "title": "Computer Software",
+            "parent_id": 13611,
+            "parent_uuid": "a23e4796-63f5-4025-8876-982cdcd7d19f",
+            "path": "",
+            "source_id": null,
+            "taxonomy_id": null
+        }
+    ],
+    "group_id": "34895",
+    "language": "en",
+    "tags": [
+        "4TU",
+        "4TU-CodePublish",
+        "ISSC",
+        "CAS-GRAS",
+        "GitLab",
+        "Pipeline",
+        "Publish",
+        "GitHub"
+    ],
+    "agreed_to_deposit_agreement": true,
+    "agreed_to_publish": true
+}

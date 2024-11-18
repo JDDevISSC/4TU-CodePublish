@@ -2,21 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Main",
+            "name": "4TU-CodePublish: Create",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.py",
+            "program": "${workspaceFolder}/src/4tu-codepublish.py",
+            "args": ["--create"],
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/src/.env"
         },
         {
-            "name": "Python: Main Create",
+            "name": "4TU-CodePublish: Publish",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.py",
-            "args": ["--create"],
+            "program": "${workspaceFolder}/src/4tu-codepublish.py",
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/src/.env"
         }
-    ]
+   ]
 }
