@@ -90,7 +90,7 @@ class MetadataHelper():
         with open(path, "r") as file:
             metadata = file.read()
             file.close
-        return metadata
+        return json.loads(metadata)
 
     def _create_metadatafile(self, path, metadata):
         self.logger.debug(f"Creating metadatafile at ({path})")
@@ -112,16 +112,16 @@ class MetadataHelper():
         deposit_agreement = self._prompt_for_deposit_agreement()
         publish_agreement = self._prompt_for_publish_agreement()
         
-        print(json.dumps(authors) + 
-              json.dumps(title) + 
-              json.dumps(description) +
-              json.dumps(license) +
-              json.dumps(categories) +
-              json.dumps(group) + 
-              json.dumps(language) +
-              json.dumps(tags) +
-              json.dumps(deposit_agreement) +
-              json.dumps(publish_agreement))
+        print(json.dumps(authors))
+        print(json.dumps(title))
+        print(json.dumps(description))
+        print(json.dumps(license))
+        print(json.dumps(categories))
+        print(json.dumps(group))
+        print(json.dumps(language))
+        print(json.dumps(tags))
+        print(json.dumps(deposit_agreement))
+        print(json.dumps(publish_agreement))
         # print(self.config.output)
         # metadata = self._prompt_user_for_input()
         # metadata = None

@@ -80,17 +80,6 @@ class DatasetAPI():
         response = requests.get(f"{self._config.base_url}/v2/account/articles", headers=headers)
         response.raise_for_status()  # Raises an error for 4XX/5XX responses
         return response
-    
-    def put_dataset_details(self, dataset_id, metadata):
-        """Update dataset with dataset_id with metadata
-        
-        """
-        self.logger.info(f"Updating dataset with dataset_id ({dataset_id}).")
-        self.logger.debug(metadata)
-        headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
-        response = requests.put(f"{self._config.base_url}/v2/account/articles/{dataset_id}", json=metadata, headers=headers)
-        response.raise_for_status()  # Raises an error for 4XX/5XX responses
-        
         
     def get_dataset(self, dataset_id):
         """Get dataset with dataset_id
@@ -209,7 +198,17 @@ class DatasetAPI():
         response = requests.get(f"{self._config.base_url}/v3/datasets/{dataset_id}.git/branches", headers=headers)
         return json.loads(response.text)
     
-    def set_default_branch_for_dataset(self, dataset_id, branch=None):
+    def put_dataset_details(self, dataset_id, metadata):
+        """Update dataset with dataset_id with metadata
+        
+        """
+        self.logger.info(f"Updating dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(metadata)
+        headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
+        response = requests.put(f"{self._config.base_url}/v2/account/articles/{dataset_id}", json=metadata, headers=headers)
+        response.raise_for_status()  # Raises an error for 4XX/5XX responses
+    
+    def put_default_branch_for_dataset(self, dataset_id, branch=None):
         """Set default branch for dataset with dataset_id
         
         """
@@ -221,4 +220,15 @@ class DatasetAPI():
         default_branch_json = { "branch": branch }
         headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
         response = requests.put(f"{self._config.base_url}/v3/datasets/{dataset_id}.git/set-default-branch", json=default_branch_json, headers=headers)
+        return response
+    
+    def post_tags_for_dataset(self, dataset_id, tags={"tags": []}):
+        """Set tags for dataset with dataset_id
+        
+        """
+        self.logger.info(f"Setting tags for dataset with dataset_id ({dataset_id}).")
+        self.logger.debug(f"tags={tags}")
+        # http://127.0.0.1:8080/v3/datasets/556cb091-9b73-45f2-85c7-d7a97465d848/tags
+        headers = {"Authorization": f"token {self._config.api_token}", "Content-Type": "application/json"}
+        response = requests.post(f"{self._config.base_url}/v3/datasets/{dataset_id}/tags", json=tags, headers=headers)
         return response
