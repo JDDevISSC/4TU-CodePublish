@@ -342,10 +342,12 @@ four characters.{os.linesep}""", multiline=True).ask()
         done_prompting = False
         tags = []
         while not done_prompting:
-            tags.append(questionary.text(f"Add a keyword:{os.linesep}")).ask()
+            tag = questionary.text(f"Add a keyword:{os.linesep}").ask()
+            if tag != "":
+                tags.append(tag)
             done_prompting = not questionary.confirm("Do you want to keep adding keywords?").ask()
         # Return author dict
-        return [{"tags": tag} for tag in tags]
+        return {"tags": tags}
             
     def _prompt_for_deposit_agreement(self):
         #http://127.0.0.1:8080/s/docs/deposit-agreement.pdf

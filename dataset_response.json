@@ -34,7 +34,11 @@
         "name": "CC BY 4.0", 
         "url": "https://creativecommons.org/licenses/by/4.0/"
         },
-    "tags": [],
+    "tags":[
+        "keyword 1",
+        "keyword 2",
+        "keyword 3"
+    ],
     "categories": [{
             "id": 13504,
             "uuid": "2bd6e110-d616-48d0-aecd-eb4f8c0dc01c", 
