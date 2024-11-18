@@ -99,6 +99,7 @@ class MetadataHelper():
             json.dump(metadata, path)
             
     def start_interactive_metadata_funnel(self):
+        # TODO Add more metadata to the funnel.
         self.logger.info(f"Starting interactive metadata funnel with output path ({self.dataset_api.config.output})")
         title = self._prompt_for_title()
         authors = self._prompt_for_authors()
@@ -107,13 +108,20 @@ class MetadataHelper():
         categories = self._prompt_for_categories()
         group = self._prompt_for_group()
         language = self._prompt_for_language()
+        tags = self._prompt_for_tags()
+        deposit_agreement = self._prompt_for_deposit_agreement()
+        publish_agreement = self._prompt_for_publish_agreement()
         
         print(json.dumps(authors) + 
               json.dumps(title) + 
               json.dumps(description) +
               json.dumps(license) +
               json.dumps(categories) +
-              json.dumps(group))
+              json.dumps(group) + 
+              json.dumps(language) +
+              json.dumps(tags) +
+              json.dumps(deposit_agreement) +
+              json.dumps(publish_agreement))
         # print(self.config.output)
         # metadata = self._prompt_user_for_input()
         # metadata = None
@@ -327,7 +335,34 @@ four characters.{os.linesep}""", multiline=True).ask()
                 value = language))
         language = questionary.select(f"Select a language:{os.linesep}", choices=choices, ).ask()
         return {"language" : language}
-        
+    
+    def _prompt_for_tags(self):
+        questionary.print(
+            "Add keywords that will help make your research more discoverable.")
+        done_prompting = False
+        tags = []
+        while not done_prompting:
+            tags.append(questionary.text(f"Add a keyword:{os.linesep}")).ask()
+            done_prompting = not questionary.confirm("Do you want to keep adding keywords?").ask()
+        # Return author dict
+        return [{"tags": tag} for tag in tags]
+            
+    def _prompt_for_deposit_agreement(self):
+        #http://127.0.0.1:8080/s/docs/deposit-agreement.pdf
+        deposit_agreement = False
+        questionary.print(f"Please refer to the Deposit Agreement at: {self.dataset_api.config.base_url}/s/docs/deposit-agreement.pdf")
+        deposit_agreement = questionary.confirm("I agree with the Deposit Agreement").ask()
+        if not deposit_agreement:
+            questionary.print("Please note that you need to agree with the Deposit Agreement to publish. Manually correct your metadata if you decide to agree.")
+        return {"agreed_to_deposit_agreement": deposit_agreement}
+    
+    def _prompt_for_publish_agreement(self):
+        publish_agreement = False
+        publish_agreement = questionary.confirm("I agree that my dataset will be published once the review is complete.").ask()
+        if not publish_agreement:
+            questionary.print("Please note that you need to agree for your dataset to be published. Manually correct your metadata if you decide to agree.")
+        return {"agreed_to_publish": publish_agreement}
+    
     def _create_choices_from_data(self, data, title_key, value_key):
         choices = []
         # Create choices from result
@@ -371,12 +406,7 @@ four characters.{os.linesep}""", multiline=True).ask()
                     title=("    " + d.get(title_key)),
                     value=d.get(value_key)
                 ))            
-        return choices           
-        
-    def _prompt_user_for_input(self):
-        metadata = {}
-        return metadata
-        
+        return choices               
 
     def _prompt_for_multiple_selection(self, options):
         selected_options = questionary.checkbox(
