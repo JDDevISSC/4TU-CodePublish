@@ -1,3 +1,57 @@
-[build-system]
-requires = ["setuptools", "wheel"]
+[build_system]
+requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "4tu-codepublish"
+dynamic = ["version"]
+description = "Pyhon application which makes publishing code to 4TU.ResearchData easy"
+readme = "README.md"
+requires_python = ">=3.6"
+license = { file = "LICENSE" }
+keywords = [
+    "4TU",
+    "4TU-CodePublish",
+    "ISSC",
+    "CAS-GRAS",
+    "GitLab",
+    "Pipeline",
+    "Publish",
+    "GitHub"
+]
+authors = [
+    { name = "Jori van Dam", email = "j.van.dam@issc.leidenuniv.nl"}
+]
+maintainers = [
+    { name = "Jori van Dam", email = "j.van.dam@issc.leidenuniv.nl"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+]
+dependencies = [
+    "certifi==2024.8.30",
+    "charset-normalizer==3.4.0",
+    "idna==3.10",
+    "prompt-toolkit==3.0.36",
+    "python-dotenv==1.0.1",
+    "questionary==2.0.1",
+    "requests==2.32.3",
+    "urllib3==2.2.3",
+    "wcwidth==0.2.13"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/JDDevISSC/4TU-CodePublish"
+"Bug Reports" = "https://github.com/JDDevISSC/4TU-CodePublish/issues"
+"Source" = "https://github.com/JDDevISSC/4TU-CodePublish"
+
+[project.scripts]
+4tu-codepublish = "_4tu_codepublish._4tu_codepublish:main"
+
+[tool.setuptools.dynamic]
+version_file = ""_4tu_codepublish/_version.py
