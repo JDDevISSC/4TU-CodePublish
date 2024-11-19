@@ -53,4 +53,7 @@ dependencies = [
 [project.scripts]
 4tu-codepublish = "_4tu_codepublish._4tu_codepublish:main"
 
+[tool.setuptools]
+packages = ["_4tu_codepublish"]
+
 [tool.setuptools_scm]
