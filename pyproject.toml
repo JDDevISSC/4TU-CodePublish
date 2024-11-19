@@ -7,7 +7,7 @@ name = "4tu-codepublish"
 dynamic = ["version"]
 description = "Pyhon application which makes publishing code to 4TU.ResearchData easy"
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 license = { file = "LICENSE" }
 keywords = [
     "4TU",
@@ -34,15 +34,15 @@ classifiers = [
     "Programming Language :: Python :: 3.6",
 ]
 dependencies = [
-    "certifi==2024.8.30",
-    "charset-normalizer==3.4.0",
-    "idna==3.10",
-    "prompt-toolkit==3.0.36",
-    "python-dotenv==1.0.1",
-    "questionary==2.0.1",
-    "requests==2.32.3",
-    "urllib3==2.2.3",
-    "wcwidth==0.2.13"
+    "certifi>=2024.8.30",
+    "charset-normalizer>=3.4.0",
+    "idna>=3.10",
+    "prompt-toolkit>=3.0.36",
+    "python-dotenv>=1.0.1",
+    "questionary>=2.0.1",
+    "requests>=2.32.3",
+    "urllib3>=2.2.3",
+    "wcwidth>=0.2.13"
 ]
 
 [project.urls]
@@ -54,5 +54,3 @@ dependencies = [
 4tu-codepublish = "_4tu_codepublish._4tu_codepublish:main"
 
 [tool.setuptools_scm]
-version_scheme = "semver"
-local_scheme = "semver"
