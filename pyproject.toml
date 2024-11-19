@@ -54,4 +54,5 @@ dependencies = [
 4tu-codepublish = "_4tu_codepublish._4tu_codepublish:main"
 
 [tool.setuptools_scm]
-version_file = "_4tu_codepublish/_version.py"
+version_scheme = "semver"
+local_scheme = "semver"
