@@ -1,5 +1,5 @@
-[build_system]
-requires = ["setuptools", "setuptools-scm"]
+[build-system]
+requires = ["setuptools", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,7 +7,7 @@ name = "4tu-codepublish"
 dynamic = ["version"]
 description = "Pyhon application which makes publishing code to 4TU.ResearchData easy"
 readme = "README.md"
-requires_python = ">=3.6"
+requires-python = ">=3.6"
 license = { file = "LICENSE" }
 keywords = [
     "4TU",
@@ -53,5 +53,5 @@ dependencies = [
 [project.scripts]
 4tu-codepublish = "_4tu_codepublish._4tu_codepublish:main"
 
-[tool.setuptools.dynamic]
-version_file = ""_4tu_codepublish/_version.py
+[tool.setuptools_scm]
+version_file = "_4tu_codepublish/_version.py"
