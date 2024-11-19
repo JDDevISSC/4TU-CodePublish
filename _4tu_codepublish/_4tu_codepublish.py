@@ -1,10 +1,9 @@
 import argparse
 import logging
-from api.dataset_api import DatasetAPI
-from util import log_helper
-from util import code_publisher
-from util.metadata_helper import MetadataHelper
-from conf.config import Config
+from _4tu_codepublish.api.dataset_api import DatasetAPI
+from _4tu_codepublish.util.metadata_helper import MetadataHelper
+from _4tu_codepublish.util import log_helper, code_publisher
+from _4tu_codepublish.conf.config import Config
 import sys
 
 def main():
@@ -38,7 +37,7 @@ def main():
         metadata_helper.start_interactive_metadata_funnel()
     else:
         #Start pushing code and metadata only if there was no create argument given.
-        code_publisher.publish()
+        code_publisher.publish(dataset_api)
         pass
 
 if __name__ == "__main__":

@@ -4,10 +4,8 @@ import os
 import questionary
 from urllib.parse import urlparse
 
-from api import dataset_api
-
 class MetadataHelper():
-    def __init__(self, dataset_api=dataset_api):
+    def __init__(self, dataset_api):
         self._dataset_api = dataset_api
         self._logger = logging.getLogger(__name__)
 
@@ -108,6 +106,7 @@ class MetadataHelper():
             
     def start_interactive_metadata_funnel(self):
         # TODO Add more metadata to the funnel.
+        # TODO Add handler for CTRL/COMMAND+C
         self.logger.info(f"Starting interactive metadata funnel with output path ({self.dataset_api.config.output})")
         title = self._prompt_for_title()
         authors = self._prompt_for_authors()

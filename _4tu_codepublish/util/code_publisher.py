@@ -1,10 +1,8 @@
 import json
-from requests import HTTPError
-from api import dataset_api
-from util import metadata_helper
+from _4tu_codepublish.util import metadata_helper
 
 
-def publish(): 
+def publish(dataset_api): 
     # The following methods can be used to generate a local JSON file for the user.
     search_results = dataset_api.search_authors("Jori")
     response = dataset_api.get_licenses()

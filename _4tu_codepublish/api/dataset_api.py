@@ -1,10 +1,10 @@
 import logging
 import requests
-from conf.config import Config
 import json
+from _4tu_codepublish.conf.config import Config
 
 class DatasetAPI():
-    
+    #TODO: Handle exceptions for requests.
     def __init__(self, config=None):
         if not isinstance(config, Config):
             raise TypeError("config must be an instance of the Config class.")

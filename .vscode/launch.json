@@ -5,18 +5,18 @@
             "name": "4TU-CodePublish: Create",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/src/4tu-codepublish.py",
+            "module": "_4tu_codepublish._4tu_codepublish",
             "args": ["--create"],
             "console": "integratedTerminal",
-            "envFile": "${workspaceFolder}/src/.env"
+            "envFile": "${workspaceFolder}/.env"
         },
         {
             "name": "4TU-CodePublish: Publish",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/src/4tu-codepublish.py",
+            "module": "_4tu_codepublish._4tu_codepublish",
             "console": "integratedTerminal",
-            "envFile": "${workspaceFolder}/src/.env"
+            "envFile": "${workspaceFolder}/.env"
         }
    ]
 }
