@@ -26,7 +26,12 @@ jobs:
         run: |
           echo "VERSION=$(python -m setuptools_scm)" >> $GITHUB_ENV
 
+      - name: Configure Git Author
+        run: |
+            git config --global user.name "${GIT_AUTHOR_NAME}"
+            git config --global user.email "${GIT_AUTHOR_EMAIL}"
+      
       - name: Create Git Tag
         run: |
-          git tag -a $VERSION -m "Release version $VERSION"
+          git tag -a $VERSION -m "Release version ${VERSION}"
           git push origin --tags
