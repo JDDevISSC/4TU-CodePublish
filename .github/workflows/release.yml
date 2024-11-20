@@ -35,13 +35,13 @@ jobs:
     #     env:
     #         GIT_AUTHOR_NAME: ${{ vars.GIT_AUTHOR_NAME }}
     #         GIT_AUTHOR_EMAIL: ${{ vars.GIT_AUTHOR_EMAIL }}
-    #         VERSION: ${{ env.VERSION }}
+    #         VERSION: ${{ env.VERSION }}            
 
-      - name: Create Git Tag
-        uses: EndBug/add-and-commit@V9
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9.1.4  
         with:
-          default_author: github_actions
-          tag: ${{ env.VERSION }}
+            default_author: github_actions
+            tag: ${{ env.VERSION }}
 
   build_docker:
     needs: tag
