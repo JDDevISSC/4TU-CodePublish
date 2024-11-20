@@ -24,7 +24,7 @@ jobs:
       - name: Get version from setuptools_scm
         id: get_version
         run: |
-          echo "VERSION=$(python -m setuptools_scm)" >> $GITHUB_ENV
+          echo "VERSION=$(python -m setuptools_scm)" >> $GITHUB_ENV > VERSION
 
     #   - name: Create Git Tag
     #     run: |
