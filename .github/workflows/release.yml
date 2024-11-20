@@ -1,4 +1,4 @@
-name: Auto Tag
+name: Tag and release
 
 on:
   push:
@@ -30,12 +30,12 @@ jobs:
         run: |
             git config --global user.name "$GIT_AUTHOR_NAME"
             git config --global user.email "$GIT_AUTHOR_EMAIL"
-            git tag -a "$version" -m "Release version $version"
+            git tag -a "$VERSION" -m "Release version $VERSION"
             git push origin --tags
         env:
             GIT_AUTHOR_NAME: ${{ vars.GIT_AUTHOR_NAME }}
             GIT_AUTHOR_EMAIL: ${{ vars.GIT_AUTHOR_EMAIL }}
-            VERSION: ${{ env.VERSION }} 
+            VERSION: ${{ env.VERSION }}
 
   build_docker:
     needs: tag
