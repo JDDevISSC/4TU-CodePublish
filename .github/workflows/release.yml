@@ -1,0 +1,32 @@
+name: Auto Tag
+
+on:
+  push:
+    branches:
+      - release  # Run this workflow on pushes to the main branch
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Install dependencies
+        run: |
+          pip install setuptools setuptools_scm
+
+      - name: Get version from setuptools_scm
+        id: get_version
+        run: |
+          echo "::set-output name=version::$(python -m setuptools_scm)"
+
+      - name: Create Git Tag
+        run: |
+          git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+          git push origin --tags
