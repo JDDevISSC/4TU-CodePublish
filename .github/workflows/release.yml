@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.8"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: |
@@ -24,9 +24,9 @@ jobs:
       - name: Get version from setuptools_scm
         id: get_version
         run: |
-          echo "::set-output name=version::$(python -m setuptools_scm)"
+          echo "VERSION=$(python -m setuptools_scm)" >> $GITHUB_ENV
 
       - name: Create Git Tag
         run: |
-          git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+          git tag -a $VERSION -m "Release version $VERSION"
           git push origin --tags
