@@ -70,13 +70,15 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
-            - name: Retrieve release assets
+            - name: Retrieve wheel from assets
               env:
                 ASSETS: ${{ needs.build_application.outputs.assets }}
               run: | 
-                echo $ASSETS
                 mkdir ./dist
-                echo "$ASSETS" | jq -r '.assets[].browser_download_url' | xargs -I{} sh -c 'curl -SL -o "./dist/$(basename {})" "{}"'
+                cd ./dist
+                URL=$(echo $ASSETS | jq -r .[].browser_download_url)
+                wget $URL
+
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
 
