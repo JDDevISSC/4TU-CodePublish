@@ -13,6 +13,8 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             contents: write
+        outputs:
+            assets: ${{ steps.release.outputs.assets }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
@@ -42,11 +44,13 @@ jobs:
                 name: dist-files
                 path: dist/
             
-            - name: Upload wheel to Release 
+            - name: Upload wheel to Release
+              id: release
               uses: softprops/action-gh-release@v2
               if: startsWith(github.ref, 'refs/tags/')
               with:
                 files: ${{ steps.build.outputs.WHEEL }}
+
 
             - name: Upload tar.gz to Release 
               uses: softprops/action-gh-release@v2
@@ -66,6 +70,13 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: Retrieve release assets
+              env:
+                ASSETS: ${{ needs.build_application.outputs.assets }}
+              run: | 
+                echo $ASSETS
+                mkdir ./dist
+                echo "$ASSETS" | jq -r '.assets[].browser_download_url' | xargs -I{} sh -c 'curl -SL -o "./dist/$(basename {})" "{}"'
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
 
