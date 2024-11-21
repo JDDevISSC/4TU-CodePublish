@@ -1,11 +1,13 @@
-FROM python:3.10-slim
+FROM python:3-alpine3.19
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml .
+COPY _4tu_codepublish .
+COPY module_build.sh .
+COPY module_install.sh .
 
-COPY ./src .
-COPY dataset_example.json .
+RUN ./module_build.sh
+RUN ./module_install.sh
 
-CMD ["python", "main.py"]
+CMD ["4tu-codepublish"]
