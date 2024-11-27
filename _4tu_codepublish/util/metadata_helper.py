@@ -105,8 +105,21 @@ class MetadataHelper():
         except Exception as e:
             self.logger.error(f"Couldn't create metadata file. Error: {e}")
             
-            
+    def _check_prerequisites(self):
+        # Check if output file is set
+        if self.dataset_api.config.output == None or self._dataset_api.config.output == "":
+            self.logger.info("No output file has been set. Make sure to set the output file using the 4TU_OUTPUT_FILE env variable or use the --output argument to specify one.")
+            self.logger.info("Quitting..")
+            sys.exit(1)
+        if self._dataset_api.config.api_token == None or self.dataset_api.config.api_token == "":
+            self.logger.info("No api tokenhas been set. Make sure to set the api token file using the 4TU_API_TOKEN env variable.")
+            self.logger.info("Quitting..")
+            sys.exit(1)
+                
     def start_interactive_metadata_funnel(self):
+        # Check for prerequisites before starting the funnel so that we can quit early when they're not met.
+        self._check_prerequisites()
+                
         # TODO Add more metadata to the funnel.
         # TODO Add handler for CTRL/COMMAND+C
         self.logger.info(f"Starting interactive metadata funnel with output path ({self.dataset_api.config.output})")

@@ -28,7 +28,7 @@ def main():
     parser.add_argument("--output", "-o", type=str, help="Specify the metadata output file.")
     args = parser.parse_args()
     
-    # Set the output file if it was specified and not empty    
+    # Set the output file if the argument option was specified and not empty    
     if args.output is not None or args.output is not args.output == "":
         config.output(args.output)
     
