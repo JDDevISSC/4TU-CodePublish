@@ -21,7 +21,7 @@ def publish(dataset_api):
     ## Create MetadataHelper
     metadata_helper = MetadataHelper(dataset_api=dataset_api)
     ## Prepare metadata by reading it from a local JSON file
-    metadata_json = metadata_helper.prepare_dataset_metadata("dataset_example.json")
+    metadata_json = metadata_helper.prepare_dataset_metadata("metadata.json")
     ## Create dataset on instance with metadata
     response = dataset_api.create_dataset(metadata_json)
     ## Using the response we'll retrieve the dataset_id from it

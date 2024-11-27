@@ -115,6 +115,10 @@ class MetadataHelper():
             self.logger.info("No api tokenhas been set. Make sure to set the api token file using the 4TU_API_TOKEN env variable.")
             self.logger.info("Quitting..")
             sys.exit(1)
+            
+    def _get_license_id_from_license(self, license):
+        license_id = license.get("value")
+        return {"license": license_id}
                 
     def start_interactive_metadata_funnel(self):
         # Check for prerequisites before starting the funnel so that we can quit early when they're not met.
@@ -127,6 +131,7 @@ class MetadataHelper():
         authors = self._prompt_for_authors()
         description = self._prompt_for_description()
         license = self._prompt_for_license()
+        license_id = self._get_license_id_from_license()
         categories = self._prompt_for_categories()
         group = self._prompt_for_group()
         language = self._prompt_for_language()
@@ -146,9 +151,11 @@ class MetadataHelper():
         self.logger.debug(f"publish_agreement JSON:" + json.dumps(publish_agreement))
         
         #Combine all data into one metadata dict
-        metadata = {**title, **authors, **description, **license, **categories, **group,
+        metadata = {**title, **authors, **description, **license, **license_id, **categories, **group,
             **language, **tags, **deposit_agreement, **publish_agreement}
         self.logger.debug(f"metadata JSON:" + json.dumps(metadata))
+        
+        # Create the metadata file with the combined metadata dict
         self._create_metadatafile(self.dataset_api.config.output, metadata)
 
     def _prompt_for_title(self):
@@ -228,7 +235,10 @@ four characters.{os.linesep}""", multiline=True).ask()
                         selected_categories.append(result)
         else:
             raise Exception("Couldn't fetch categories from server.")
-        return {"categories": selected_categories}         
+        categories = []
+        for category in selected_categories:
+            categories.append({"tag", category})
+        return categories        
 
     def _prompt_for_group(self):
         groups = {
