@@ -1,5 +1,5 @@
 import json
-from _4tu_codepublish.util import metadata_helper
+from _4tu_codepublish.util.metadata_helper import MetadataHelper
 
 
 def publish(dataset_api): 
@@ -18,6 +18,8 @@ def publish(dataset_api):
     response = dataset_api.get_git_branches_for_dataset("556cb091-9b73-45f2-85c7-d7a97465d848")
     
     # Example flow
+    ## Create MetadataHelper
+    metadata_helper = MetadataHelper(dataset_api=dataset_api)
     ## Prepare metadata by reading it from a local JSON file
     metadata_json = metadata_helper.prepare_dataset_metadata("dataset_example.json")
     ## Create dataset on instance with metadata

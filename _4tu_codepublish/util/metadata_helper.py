@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import sys
 import questionary
 from urllib.parse import urlparse
 
@@ -91,6 +92,7 @@ class MetadataHelper():
                 file.close()
         except Exception as e:
             self.logger.error(f"Couldn't load metadata from file. Error: {e}")
+            sys.exit(1)
         return json.loads(metadata)
 
     def _create_metadatafile(self, path, metadata):
