@@ -113,3 +113,17 @@ Or start the metadata creation funnel:
 Creating a new release is as simple as push a new (SEMVER based) tag on a commit on the main branch. After the tag is pushed onto the main branch you can create a new release on the repository page by *Drafting a new release* and selecting the desired tag. Use *4TU-CodePublish major.minor.patch* as the *Release title*. The release description isn't necesary for now, although in the future it should contain atleast a changelog. 
 
 Creating the release should trigger Github Actions that will build the module artifacts and add them to the release. Furthermore a Github Action will run that will build and push a Docker image to the repo's container registry as a *Package* that can be accessed at the repository page under *Packages* and by external systems such as GitLab Runners as examplified in the pipeline_examples directory.
+
+
+## Future development
+### Publishing feature
+For now development of 4TU-CodePublish is dependent on the development of [Djehuty](https://github.com/4TUResearchData/djehuty), the software that makes up 4TU.ResearchData. For now there are talks to add API support for aquiring the url of the internal 4TUResearchData .git repository related to the dataset which acts as a temporary GIT remote. This will make it possible to automatically push code to 4TU from a diverse set of environments.
+
+### Support for embargoed access and restricted access
+For now only Open access publications are supported.
+
+### Support for GitHub Actions / BitBucket / etc
+Since 4TU-CodePublish uses a docker container for packaging, it is quite easy to support other code collaboration platforms such as GitHub and BitBucket. For now we want to see how the GitLab workflow works for researchers to be able to iterate on the functionality.
+
+### Support for more metadata
+For now only the required metadata is supported in the metadata funnel because of resource constraints. Please feel free to add more metadata support though pull requests.
