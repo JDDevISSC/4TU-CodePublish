@@ -131,7 +131,7 @@ class MetadataHelper():
         authors = self._prompt_for_authors()
         description = self._prompt_for_description()
         license = self._prompt_for_license()
-        license_id = self._get_license_id_from_license()
+        license_id = self._get_license_id_from_license(license)
         categories = self._prompt_for_categories()
         group = self._prompt_for_group()
         language = self._prompt_for_language()
@@ -237,8 +237,8 @@ four characters.{os.linesep}""", multiline=True).ask()
             raise Exception("Couldn't fetch categories from server.")
         categories = []
         for category in selected_categories:
-            categories.append({"tag", category})
-        return categories        
+            categories.append(category)
+        return {"categories": categories}        
 
     def _prompt_for_group(self):
         groups = {
