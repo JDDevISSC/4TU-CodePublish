@@ -5,5 +5,3 @@ publish-job:       # This job runs in the publish stage, which runs first.
   stage: publish
   image: 
     name: ghcr.io/jddevissc/4tu-codepublish:latest
-  script: 
-    - echo "Done publishing"
